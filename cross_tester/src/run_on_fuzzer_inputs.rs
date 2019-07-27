@@ -1,4 +1,4 @@
-fn read_inputs(dir: &str, ext: &str) -> Vec<Vec<u8>> {
+fn read_inputs(dir: &str, ext: &str) -> Vec<(Vec<u8>, String)> {
     use std::io::Read;
     use std::fs::{self};
     use std::path::Path;
@@ -30,7 +30,7 @@ fn read_inputs(dir: &str, ext: &str) -> Vec<Vec<u8>> {
         println!("Executing from {}", file_name);
         let mut f = File::open(path).expect("must open file");
         f.read_to_end(&mut buffer).expect("must read bytes from file");
-        results.push(buffer);
+        results.push((buffer, file_name));
     }
     
     results
@@ -39,6 +39,7 @@ fn read_inputs(dir: &str, ext: &str) -> Vec<Vec<u8>> {
 #[test]
 fn cross_check_on_honggfuzz() {
     use super::run;
+    use std::path::Path;
 
     let path = "../honggfuzz/hfuzz_workspace/fuzz_target_compare/";
     let ext = "fuzz";
@@ -48,7 +49,12 @@ fn cross_check_on_honggfuzz() {
         if i % 1000 == 0 {
             println!("Made {} iterations", i);
         }
-        run(&input[..]);
+        let (data, file_name) = input;
+        run(&data[..]);
+        let directory = Path::new(&path);
+        let file_name = Path::new(file_name);
+        let full_path = directory.join(file_name);
+        std::fs::remove_file(full_path).expect("should delete fixed bug trace");
     }
 }
 
@@ -64,6 +70,7 @@ fn cross_check_on_libfuzzer() {
         if i % 1000 == 0 {
             println!("Made {} iterations", i);
         }
-        run(&input[..]);
+        let (data, _) = input;
+        run(&data[..]);
     }
 }
