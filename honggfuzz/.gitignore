@@ -4,3 +4,4 @@ hfuzz_workspace
 corpus
 artifacts
 cov
+Cargo.lock

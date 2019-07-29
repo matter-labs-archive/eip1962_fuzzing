@@ -1,5 +1,5 @@
-
 target
 corpus
 artifacts
 cov
+Cargo.lock
