@@ -15,7 +15,9 @@ version = "*"
 git = "https://github.com/matter-labs/eip1962"
 
 [dependencies.eth_pairings_cpp]
-git = "https://github.com/matter-labs/eip1962_cpp"
+path = "../../eip1962cpp"
+#git = "https://github.com/matter-labs/eip1962_cpp"
+#features = ["fuzz"]
 
 [dependencies]
 honggfuzz = "0.5"
