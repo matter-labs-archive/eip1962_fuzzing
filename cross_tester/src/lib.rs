@@ -18,11 +18,12 @@ fn run(data: &[u8]) {
                 println!("Native result = {}, C++ result = {}", hex::encode(&n), hex::encode(&c));
                 panic!("Native result = {}, C++ result = {}", hex::encode(&n), hex::encode(&c));
             } else {
+                println!("Native and C++ results coincide");
                 // println!("Native and C++ results coincide on {}", hex::encode(&n));
             }
         },
         (Err(n), Err(c)) => {
-            // println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
+            println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
         },
         (Ok(n), Err(c)) => {
             println!("Input = {}", hex::encode(&data));

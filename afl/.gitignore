@@ -1,0 +1,4 @@
+target
+Cargo.lock
+in_compare/*.cov
+out_compare/**/*

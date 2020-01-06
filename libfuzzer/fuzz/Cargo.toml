@@ -12,12 +12,13 @@ cargo-fuzz = true
 hex = "*"
 
 [dependencies.eth_pairings]
-git = "https://github.com/matter-labs/eip1962"
+#git = "https://github.com/matter-labs/eip1962"
+path = "../../../eip1962"
 
 [dependencies.eth_pairings_cpp]
-#path = "../../../eip1962cpp"
-git = "https://github.com/matter-labs/eip1962_cpp"
-#features = ["fuzz"]
+path = "../../../eip1962_cpp"
+#git = "https://github.com/matter-labs/eip1962_cpp"
+features = ["fuzz"]
 
 [dependencies.libfuzzer-sys]
 git = "https://github.com/rust-fuzz/libfuzzer-sys.git"

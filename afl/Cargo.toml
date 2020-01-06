@@ -1,6 +1,6 @@
 
 [package]
-name = "eth_pairings-honggfuzz"
+name = "eth_pairings-afl"
 version = "0.0.1"
 authors = ["Automatically generated"]
 publish = false
@@ -9,19 +9,21 @@ edition = "2018"
 [package.metadata]
 hfuzz = true
 
+[dependencies.afl]
+version = "0.5"
+
 [dependencies.hex]
 version = "*"
 
 [dependencies.eth_pairings]
-git = "https://github.com/matter-labs/eip1962"
+#git = "https://github.com/matter-labs/eip1962"
+path = "../../eip1962"
+#features = ["gas_metering"]
 
 [dependencies.eth_pairings_cpp]
-#path = "../../eip1962_cpp"
-git = "https://github.com/matter-labs/eip1962_cpp"
+path = "../../eip1962_cpp"
+#git = "https://github.com/matter-labs/eip1962_cpp"
 #features = ["fuzz"]
-
-[dependencies]
-honggfuzz = "0.5"
 
 # Prevent this from interfering with workspaces
 [workspace]

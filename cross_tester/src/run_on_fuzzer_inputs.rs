@@ -1,4 +1,6 @@
-fn read_inputs(dir: &str, ext: &str) -> Vec<(Vec<u8>, String)> {
+use std::path::PathBuf;
+
+fn read_inputs(dir: &str, ext: &str) -> Vec<(Vec<u8>, String, PathBuf)> {
     use std::io::Read;
     use std::fs::{self};
     use std::path::Path;
@@ -28,9 +30,58 @@ fn read_inputs(dir: &str, ext: &str) -> Vec<(Vec<u8>, String)> {
         let mut buffer = Vec::new();
         let file_name = path.file_name().unwrap().to_str().unwrap().to_owned();
         println!("Executing from {}", file_name);
-        let mut f = File::open(path).expect("must open file");
+        let mut f = File::open(&path).expect("must open file");
         f.read_to_end(&mut buffer).expect("must read bytes from file");
-        results.push((buffer, file_name));
+        results.push((buffer, file_name, path));
+    }
+    
+    results
+}
+
+fn read_inputs_from_dirs(dirs: Vec<&str>, ext: &str) -> Vec<(Vec<u8>, String, PathBuf)> {
+    use std::io::Read;
+    use std::fs::{self};
+    use std::path::Path;
+    use std::fs::File;
+
+    let mut results = vec![];
+
+    for dir in dirs.iter() {
+        let dir = Path::new(dir);
+        assert!(dir.is_dir());
+
+        let files = fs::read_dir(dir);
+        if files.is_err() {
+            continue
+        }
+        
+        for entry in files.expect("must read the directory") {
+            let entry = entry.expect("directory should contain files");
+            let path = entry.path();
+            if path.is_dir() {
+                continue
+            } else {
+                let extension = path.extension();
+                if extension.is_none() {
+                    if ext != "" {
+                        continue
+                    }
+                } else {
+                    let extension = extension.unwrap();
+                    if extension != ext {
+                        continue
+                    }
+                }
+            }
+            let mut buffer = Vec::new();
+            // let full_path = path.to_str().unwrap().to_owned();
+            // let full_path = dir.join(path.file_name().unwrap());
+            let file_name = path.file_name().unwrap().to_str().unwrap().to_owned();
+            println!("Executing from {}", file_name);
+            let mut f = File::open(&path).expect("must open file");
+            f.read_to_end(&mut buffer).expect("must read bytes from file");
+            results.push((buffer, file_name, path));
+        }
     }
     
     results
@@ -49,12 +100,9 @@ fn cross_check_on_honggfuzz() {
         if i % 1000 == 0 {
             println!("Made {} iterations", i);
         }
-        let (data, file_name) = input;
+        let (data, _file_name, full_path) = input;
         run(&data[..]);
-        let directory = Path::new(&path);
-        let file_name = Path::new(file_name);
-        let full_path = directory.join(file_name);
-        std::fs::remove_file(full_path).expect("should delete fixed bug trace");
+        // std::fs::remove_file(full_path).expect("should delete fixed bug trace");
     }
 }
 
@@ -70,7 +118,26 @@ fn cross_check_on_libfuzzer() {
         if i % 1000 == 0 {
             println!("Made {} iterations", i);
         }
-        let (data, _) = input;
+        let (data, _, full_path) = input;
         run(&data[..]);
+        // std::fs::remove_file(full_path).expect("should delete fixed bug trace");
+    }
+}
+
+#[test]
+fn cross_check_on_afl() {
+    use super::run;
+
+    let paths = vec!["../afl/out_compare/fuzzer01/crashes/", "../afl/out_compare/fuzzer02/crashes/"];
+    let ext = "";
+    let inputs = read_inputs_from_dirs(paths, ext);
+    println!("Running on {} crash inputs", inputs.len());
+    for (i, input) in inputs.iter().enumerate() {
+        if i % 1000 == 0 {
+            println!("Made {} iterations", i);
+        }
+        let (data, _file_name, full_path) = input;
+        run(&data[..]);
+        // std::fs::remove_file(full_path).expect("should delete fixed bug trace");
     }
 }
