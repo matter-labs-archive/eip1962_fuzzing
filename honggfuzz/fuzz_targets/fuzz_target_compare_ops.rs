@@ -35,7 +35,7 @@ fn main() {
             let cpp_op = cpp_op.unwrap();
             
             let native = eth_pairings::public_interface::perform_operation(native_op, &data[0..]);
-            let cpp = eth_pairings_cpp::perform_operation(native_op, &data[0..]);
+            let cpp = eth_pairings_cpp::perform_operation(cpp_op, &data[0..]);
             match (native, cpp) {
                 (Ok(n), Ok(c)) => {
                     if n != c {
