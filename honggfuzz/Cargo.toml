@@ -36,8 +36,12 @@ name = "fuzz_target_compare"
 path = "fuzz_targets/fuzz_target_compare.rs"
 
 [[bin]]
-name = "fuzz_target_gas"
-path = "fuzz_targets/fuzz_target_gas.rs"
+name = "fuzz_target_compare_ops"
+path = "fuzz_targets/fuzz_target_compare_ops.rs"
+
+#[[bin]]
+#name = "fuzz_target_gas"
+#path = "fuzz_targets/fuzz_target_gas.rs"
 
 [profile.dev]
 opt-level = 2
