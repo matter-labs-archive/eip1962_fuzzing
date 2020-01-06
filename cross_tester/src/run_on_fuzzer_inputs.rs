@@ -115,7 +115,7 @@ fn cross_check_with_op() {
     let inputs = read_inputs_from_dirs(paths, exts);
     println!("Running on {} crash inputs", inputs.len());
     for (i, input) in inputs.iter().enumerate() {
-        if i % 1000 == 0 {
+        if i % 100 == 0 {
             println!("Made {} iterations", i);
         }
         let (data, _file_name, full_path) = input;
