@@ -24,7 +24,7 @@ fn main() {
                     assert!(n.as_u8() == c.as_u8());
                 },
                 (None, None) => {
-
+                    return;
                 },
                 _ => {
                     panic!("Difference in parsing of operation types");

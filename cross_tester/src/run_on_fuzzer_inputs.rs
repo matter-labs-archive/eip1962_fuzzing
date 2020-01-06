@@ -38,7 +38,7 @@ fn read_inputs(dir: &str, ext: &str) -> Vec<(Vec<u8>, String, PathBuf)> {
     results
 }
 
-fn read_inputs_from_dirs(dirs: Vec<&str>, ext: &str) -> Vec<(Vec<u8>, String, PathBuf)> {
+fn read_inputs_from_dirs(dirs: Vec<&str>, exts: Vec<&str>) -> Vec<(Vec<u8>, String, PathBuf)> {
     use std::io::Read;
     use std::fs::{self};
     use std::path::Path;
@@ -63,12 +63,12 @@ fn read_inputs_from_dirs(dirs: Vec<&str>, ext: &str) -> Vec<(Vec<u8>, String, Pa
             } else {
                 let extension = path.extension();
                 if extension.is_none() {
-                    if ext != "" {
+                    if !exts.is_empty() {
                         continue
                     }
                 } else {
                     let extension = extension.unwrap();
-                    if extension != ext {
+                    if !exts.contains(&extension.to_str().unwrap()) {
                         continue
                     }
                 }
@@ -107,6 +107,24 @@ fn cross_check_on_honggfuzz() {
 }
 
 #[test]
+fn cross_check_with_op() {
+    use super::run_with_op;
+
+    let paths = vec!["fuzz_vectors/fuzz_target_compare_ops/"];
+    let exts = vec!["fuzz"];
+    let inputs = read_inputs_from_dirs(paths, exts);
+    println!("Running on {} crash inputs", inputs.len());
+    for (i, input) in inputs.iter().enumerate() {
+        if i % 1000 == 0 {
+            println!("Made {} iterations", i);
+        }
+        let (data, _file_name, full_path) = input;
+        run_with_op(&data[..]);
+        // std::fs::remove_file(full_path).expect("should delete fixed bug trace");
+    }
+}
+
+#[test]
 fn cross_check_on_libfuzzer() {
     use super::run;
 
@@ -129,8 +147,8 @@ fn cross_check_on_afl() {
     use super::run;
 
     let paths = vec!["../afl/out_compare/fuzzer01/crashes/", "../afl/out_compare/fuzzer02/crashes/"];
-    let ext = "";
-    let inputs = read_inputs_from_dirs(paths, ext);
+    let exts = vec![""];
+    let inputs = read_inputs_from_dirs(paths, exts);
     println!("Running on {} crash inputs", inputs.len());
     for (i, input) in inputs.iter().enumerate() {
         if i % 1000 == 0 {
