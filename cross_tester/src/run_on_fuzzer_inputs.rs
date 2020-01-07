@@ -138,7 +138,7 @@ fn cross_check_on_libfuzzer() {
         }
         let (data, _, full_path) = input;
         run(&data[..]);
-        // std::fs::remove_file(full_path).expect("should delete fixed bug trace");
+        std::fs::remove_file(full_path).expect("should delete fixed bug trace");
     }
 }
 

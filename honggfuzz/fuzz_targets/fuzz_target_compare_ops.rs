@@ -45,7 +45,8 @@ fn main() {
                         // println!("Native and C++ results coincide on {}", hex::encode(&n));
                     }
                 },
-                (Err(n), Err(c)) => {
+                (Err(_n), Err(_c)) => {
+                    return;
                     // println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
                 },
                 (Ok(n), Err(c)) => {
