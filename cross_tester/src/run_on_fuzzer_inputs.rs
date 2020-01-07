@@ -120,7 +120,7 @@ fn cross_check_with_op() {
         }
         let (data, _file_name, full_path) = input;
         run_with_op(&data[..]);
-        // std::fs::remove_file(full_path).expect("should delete fixed bug trace");
+        std::fs::remove_file(full_path).expect("should delete fixed bug trace");
     }
 }
 
