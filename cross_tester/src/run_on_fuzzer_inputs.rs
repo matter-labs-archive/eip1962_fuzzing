@@ -110,7 +110,7 @@ fn cross_check_on_honggfuzz() {
 fn cross_check_with_op() {
     use super::run_with_op;
 
-    let paths = vec!["fuzz_vectors/fuzz_target_compare_ops/"];
+    let paths = vec!["fuzz_vectors/", "fuzz_vectors/fuzz_target_compare_ops/"];
     let exts = vec!["fuzz"];
     let inputs = read_inputs_from_dirs(paths, exts);
     println!("Running on {} crash inputs", inputs.len());
