@@ -16,6 +16,10 @@ fn main() {
         // `&[u8]` when possible.
         // Here, this slice will contain a "random" quantity of "random" data.
         fuzz!(|data: &[u8]| {
+            if data.len() < 1 {
+                return;
+            }
+            
             let native_op = eth_pairings::public_interface::OperationType::from_u8(data[0]);
             let cpp_op = eth_pairings_cpp::OperationType::from_u8(data[0]);
 

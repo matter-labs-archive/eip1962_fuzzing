@@ -8,6 +8,10 @@ mod run_on_csv;
 mod run_on_fuzzer_inputs;
 
 fn run(data: &[u8]) {
+    if data.len() < 1 {
+        return;
+    }
+    
     // println!("Input = {}", hex::encode(&data));
     let native = eth_pairings::public_interface::API::run(&data);
     let cpp = eth_pairings_cpp::run(&data);
@@ -39,6 +43,9 @@ fn run(data: &[u8]) {
 }
 
 fn run_with_op(data: &[u8]) {
+    if data.len() < 1 {
+        return;
+    }
     let native_op = eth_pairings::public_interface::OperationType::from_u8(data[0]);
     let cpp_op = eth_pairings_cpp::OperationType::from_u8(data[0]);
 
@@ -57,8 +64,8 @@ fn run_with_op(data: &[u8]) {
     let native_op = native_op.unwrap();
     let cpp_op = cpp_op.unwrap();
     
-    let native = eth_pairings::public_interface::API::run(&data);
-    let cpp = eth_pairings_cpp::run(&data);
+    let native = eth_pairings::public_interface::perform_operation(native_op, &data[0..]);
+    let cpp = eth_pairings_cpp::perform_operation(cpp_op, &data[0..]);
     match (native, cpp) {
         (Ok(n), Ok(c)) => {
             if n != c {

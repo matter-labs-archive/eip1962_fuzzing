@@ -48,7 +48,9 @@ fn read_inputs_from_dirs(dirs: Vec<&str>, exts: Vec<&str>) -> Vec<(Vec<u8>, Stri
 
     for dir in dirs.iter() {
         let dir = Path::new(dir);
-        assert!(dir.is_dir());
+        if !dir.is_dir() {
+            continue;
+        }
 
         let files = fs::read_dir(dir);
         if files.is_err() {
@@ -90,7 +92,6 @@ fn read_inputs_from_dirs(dirs: Vec<&str>, exts: Vec<&str>) -> Vec<(Vec<u8>, Stri
 #[test]
 fn cross_check_on_honggfuzz() {
     use super::run;
-    use std::path::Path;
 
     let path = "../honggfuzz/hfuzz_workspace/fuzz_target_compare/";
     let ext = "fuzz";
@@ -102,7 +103,7 @@ fn cross_check_on_honggfuzz() {
         }
         let (data, _file_name, full_path) = input;
         run(&data[..]);
-        // std::fs::remove_file(full_path).expect("should delete fixed bug trace");
+        std::fs::remove_file(full_path).expect("should delete fixed bug trace");
     }
 }
 
@@ -136,7 +137,7 @@ fn cross_check_on_libfuzzer() {
         if i % 1000 == 0 {
             println!("Made {} iterations", i);
         }
-        let (data, _, full_path) = input;
+        let (data, _file_name, full_path) = input;
         run(&data[..]);
         std::fs::remove_file(full_path).expect("should delete fixed bug trace");
     }
@@ -156,6 +157,6 @@ fn cross_check_on_afl() {
         }
         let (data, _file_name, full_path) = input;
         run(&data[..]);
-        // std::fs::remove_file(full_path).expect("should delete fixed bug trace");
+        std::fs::remove_file(full_path).expect("should delete fixed bug trace");
     }
 }
