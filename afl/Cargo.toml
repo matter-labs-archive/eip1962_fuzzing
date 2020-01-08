@@ -18,12 +18,14 @@ version = "*"
 [dependencies.eth_pairings]
 git = "https://github.com/matter-labs/eip1962"
 #path = "../../eip1962"
-features = ["gas_metering"]
+features = ["gas_metering", "fuzzing_mode"]
 
 [dependencies.eth_pairings_cpp]
 #path = "../../eip1962_cpp"
 git = "https://github.com/matter-labs/eip1962_cpp"
 #features = ["fuzz"]
+features = ["fuzzing_mode"]
+
 
 # Prevent this from interfering with workspaces
 [workspace]
