@@ -93,7 +93,6 @@ fn run_with_op(data: &[u8]) {
     }
 }
 
-
 fn run_gas_with_op(data: &[u8]) {
     if data.len() < 1 {
         return;
@@ -115,6 +114,16 @@ fn run_gas_with_op(data: &[u8]) {
 
     let native_op = native_op.unwrap();
     let cpp_op = cpp_op.unwrap();
+
+    if native_op == eth_pairings::public_interface::OperationType::G1MULTIEXP ||
+            native_op == eth_pairings::public_interface::OperationType::G2MULTIEXP ||
+            native_op == eth_pairings::public_interface::OperationType::BLS12PAIR ||
+            native_op == eth_pairings::public_interface::OperationType::BNPAIR ||
+            native_op == eth_pairings::public_interface::OperationType::MNT4PAIR ||
+            native_op == eth_pairings::public_interface::OperationType::MNT6PAIR 
+    {
+        return;
+    }
     
     let native = eth_pairings::gas_meter::meter_operation(native_op, &data[0..]);
     let cpp = eth_pairings_cpp::meter_operation(cpp_op, &data[0..]);

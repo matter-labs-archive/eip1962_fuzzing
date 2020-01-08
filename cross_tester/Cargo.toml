@@ -18,8 +18,8 @@ git = "https://github.com/matter-labs/eip1962"
 features = ["gas_metering"]
 
 [dependencies.eth_pairings_cpp]
-git = "https://github.com/matter-labs/eip1962_cpp"
-#path = "../../eip1962_cpp"
+#git = "https://github.com/matter-labs/eip1962_cpp"
+path = "../../eip1962_cpp"
 #features = ["fuzz"]
 
 # Prevent this from interfering with workspaces

@@ -126,6 +126,24 @@ fn cross_check_with_op() {
 }
 
 #[test]
+fn cross_check_with_gas() {
+    use super::run_gas_with_op;
+
+    let paths = vec!["fuzz_vectors/", "fuzz_vectors/fuzz_target_compare_ops/"];
+    let exts = vec!["fuzz", "cov"];
+    let inputs = read_inputs_from_dirs(paths, exts);
+    println!("Running on {} crash inputs", inputs.len());
+    for (i, input) in inputs.iter().enumerate() {
+        if i % 100 == 0 {
+            println!("Made {} iterations", i);
+        }
+        let (data, _file_name, full_path) = input;
+        run_gas_with_op(&data[..]);
+        std::fs::remove_file(full_path).expect("should delete fixed bug trace");
+    }
+}
+
+#[test]
 fn cross_check_on_libfuzzer() {
     use super::run;
 

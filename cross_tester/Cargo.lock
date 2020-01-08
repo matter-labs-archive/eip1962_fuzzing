@@ -58,7 +58,7 @@ dependencies = [
 [[package]]
 name = "eth_pairings"
 version = "0.4.0"
-source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
+source = "git+https://github.com/matter-labs/eip1962#0be088ae18362be3e9be99bf8970255bfbd9a040"
 dependencies = [
  "byteorder 1.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "eth_pairings_repr_derive 0.2.0 (git+https://github.com/matter-labs/eip1962)",
@@ -76,7 +76,6 @@ dependencies = [
 [[package]]
 name = "eth_pairings_cpp"
 version = "0.2.0"
-source = "git+https://github.com/matter-labs/eip1962_cpp#66e4dd058a11583b74ea252de7ccc3299be10343"
 dependencies = [
  "cc 1.0.49 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -87,14 +86,14 @@ version = "0.0.1"
 dependencies = [
  "csv 1.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "eth_pairings 0.4.0 (git+https://github.com/matter-labs/eip1962)",
- "eth_pairings_cpp 0.2.0 (git+https://github.com/matter-labs/eip1962_cpp)",
+ "eth_pairings_cpp 0.2.0",
  "hex 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "eth_pairings_repr_derive"
 version = "0.2.0"
-source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
+source = "git+https://github.com/matter-labs/eip1962#0be088ae18362be3e9be99bf8970255bfbd9a040"
 dependencies = [
  "byteorder 1.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "proc-macro2 1.0.7 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -105,7 +104,7 @@ dependencies = [
 [[package]]
 name = "fixed_width_field"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
+source = "git+https://github.com/matter-labs/eip1962#0be088ae18362be3e9be99bf8970255bfbd9a040"
 dependencies = [
  "simple_uint 0.1.0 (git+https://github.com/matter-labs/eip1962)",
 ]
@@ -113,7 +112,7 @@ dependencies = [
 [[package]]
 name = "fixed_width_fp12"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
+source = "git+https://github.com/matter-labs/eip1962#0be088ae18362be3e9be99bf8970255bfbd9a040"
 dependencies = [
  "simple_uint 0.1.0 (git+https://github.com/matter-labs/eip1962)",
 ]
@@ -121,7 +120,7 @@ dependencies = [
 [[package]]
 name = "fixed_width_fp3_fp4"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
+source = "git+https://github.com/matter-labs/eip1962#0be088ae18362be3e9be99bf8970255bfbd9a040"
 dependencies = [
  "simple_uint 0.1.0 (git+https://github.com/matter-labs/eip1962)",
 ]
@@ -129,7 +128,7 @@ dependencies = [
 [[package]]
 name = "fixed_width_fp6"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
+source = "git+https://github.com/matter-labs/eip1962#0be088ae18362be3e9be99bf8970255bfbd9a040"
 dependencies = [
  "simple_uint 0.1.0 (git+https://github.com/matter-labs/eip1962)",
 ]
@@ -137,7 +136,7 @@ dependencies = [
 [[package]]
 name = "fixed_width_group_and_loop"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
+source = "git+https://github.com/matter-labs/eip1962#0be088ae18362be3e9be99bf8970255bfbd9a040"
 dependencies = [
  "simple_uint 0.1.0 (git+https://github.com/matter-labs/eip1962)",
 ]
@@ -285,7 +284,7 @@ dependencies = [
 [[package]]
 name = "simple_uint"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
+source = "git+https://github.com/matter-labs/eip1962#0be088ae18362be3e9be99bf8970255bfbd9a040"
 dependencies = [
  "byteorder 1.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "crunchy 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -327,7 +326,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum csv 1.1.2 (registry+https://github.com/rust-lang/crates.io-index)" = "11f8cbd084b9a431d52dfac0b8428a26b68f1061138a7bea18aa56b9cdf55266"
 "checksum csv-core 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)" = "9b5cadb6b25c77aeff80ba701712494213f4a8418fcda2ee11b6560c3ad0bf4c"
 "checksum eth_pairings 0.4.0 (git+https://github.com/matter-labs/eip1962)" = "<none>"
-"checksum eth_pairings_cpp 0.2.0 (git+https://github.com/matter-labs/eip1962_cpp)" = "<none>"
 "checksum eth_pairings_repr_derive 0.2.0 (git+https://github.com/matter-labs/eip1962)" = "<none>"
 "checksum fixed_width_field 0.1.0 (git+https://github.com/matter-labs/eip1962)" = "<none>"
 "checksum fixed_width_fp12 0.1.0 (git+https://github.com/matter-labs/eip1962)" = "<none>"
