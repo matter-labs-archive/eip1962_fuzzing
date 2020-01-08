@@ -14,6 +14,7 @@ version = "*"
 
 [dependencies.eth_pairings]
 git = "https://github.com/matter-labs/eip1962"
+features = ["gas_metering"]
 
 [dependencies.eth_pairings_cpp]
 #path = "../../eip1962_cpp"
@@ -40,9 +41,9 @@ path = "fuzz_targets/fuzz_target_compare.rs"
 name = "fuzz_target_compare_ops"
 path = "fuzz_targets/fuzz_target_compare_ops.rs"
 
-#[[bin]]
-#name = "fuzz_target_gas"
-#path = "fuzz_targets/fuzz_target_gas.rs"
+[[bin]]
+name = "fuzz_target_gas"
+path = "fuzz_targets/fuzz_target_gas.rs"
 
 [profile.dev]
 opt-level = 2

@@ -58,7 +58,7 @@ dependencies = [
 [[package]]
 name = "eth_pairings"
 version = "0.4.0"
-source = "git+https://github.com/matter-labs/eip1962#100d5a3ad24cd8ae99e7dbb3729b7f113ae0d2bc"
+source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
 dependencies = [
  "byteorder 1.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "eth_pairings_repr_derive 0.2.0 (git+https://github.com/matter-labs/eip1962)",
@@ -76,7 +76,7 @@ dependencies = [
 [[package]]
 name = "eth_pairings_cpp"
 version = "0.2.0"
-source = "git+https://github.com/matter-labs/eip1962_cpp#55267462dc7c132afed6cd215ed73ba2bdba66f6"
+source = "git+https://github.com/matter-labs/eip1962_cpp#66e4dd058a11583b74ea252de7ccc3299be10343"
 dependencies = [
  "cc 1.0.49 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -94,7 +94,7 @@ dependencies = [
 [[package]]
 name = "eth_pairings_repr_derive"
 version = "0.2.0"
-source = "git+https://github.com/matter-labs/eip1962#100d5a3ad24cd8ae99e7dbb3729b7f113ae0d2bc"
+source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
 dependencies = [
  "byteorder 1.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "proc-macro2 1.0.7 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -105,7 +105,7 @@ dependencies = [
 [[package]]
 name = "fixed_width_field"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#100d5a3ad24cd8ae99e7dbb3729b7f113ae0d2bc"
+source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
 dependencies = [
  "simple_uint 0.1.0 (git+https://github.com/matter-labs/eip1962)",
 ]
@@ -113,7 +113,7 @@ dependencies = [
 [[package]]
 name = "fixed_width_fp12"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#100d5a3ad24cd8ae99e7dbb3729b7f113ae0d2bc"
+source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
 dependencies = [
  "simple_uint 0.1.0 (git+https://github.com/matter-labs/eip1962)",
 ]
@@ -121,7 +121,7 @@ dependencies = [
 [[package]]
 name = "fixed_width_fp3_fp4"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#100d5a3ad24cd8ae99e7dbb3729b7f113ae0d2bc"
+source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
 dependencies = [
  "simple_uint 0.1.0 (git+https://github.com/matter-labs/eip1962)",
 ]
@@ -129,7 +129,7 @@ dependencies = [
 [[package]]
 name = "fixed_width_fp6"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#100d5a3ad24cd8ae99e7dbb3729b7f113ae0d2bc"
+source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
 dependencies = [
  "simple_uint 0.1.0 (git+https://github.com/matter-labs/eip1962)",
 ]
@@ -137,7 +137,7 @@ dependencies = [
 [[package]]
 name = "fixed_width_group_and_loop"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#100d5a3ad24cd8ae99e7dbb3729b7f113ae0d2bc"
+source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
 dependencies = [
  "simple_uint 0.1.0 (git+https://github.com/matter-labs/eip1962)",
 ]
@@ -285,7 +285,7 @@ dependencies = [
 [[package]]
 name = "simple_uint"
 version = "0.1.0"
-source = "git+https://github.com/matter-labs/eip1962#100d5a3ad24cd8ae99e7dbb3729b7f113ae0d2bc"
+source = "git+https://github.com/matter-labs/eip1962#7ffe191ed990fc6c2180326ebefe9cfd48cfac11"
 dependencies = [
  "byteorder 1.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "crunchy 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
