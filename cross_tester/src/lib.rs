@@ -71,7 +71,7 @@ fn run_with_op(data: &[u8]) {
             if n != c {
                 println!("Input = {}", hex::encode(&data));
                 println!("Native result = {}, C++ result = {}", hex::encode(&n), hex::encode(&c));
-                panic!("Native result = {}, C++ result = {}", hex::encode(&n), hex::encode(&c));
+                panic!("For op type {:?}: Native result = {}, C++ result = {}", native_op, hex::encode(&n), hex::encode(&c));
             } else {
                 println!("Native and C++ results coincide");
                 // println!("Native and C++ results coincide on {}", hex::encode(&n));
@@ -83,12 +83,12 @@ fn run_with_op(data: &[u8]) {
         (Ok(n), Err(c)) => {
             println!("Input = {}", hex::encode(&data));
             println!("Native result = {}, while C++ returned error {:?}", hex::encode(&n), c);
-            panic!("Native result = {}, while C++ returned error {:?}", hex::encode(&n), c);
+            panic!("For op type {:?}: Native result = {}, while C++ returned error {:?}", native_op, hex::encode(&n), c);
         },
         (Err(n), Ok(c)) => {
             println!("Input = {}", hex::encode(&data));
             println!("Native result returned error {:?}, while C++ returned {}", n, hex::encode(&c));
-            panic!("Native result returned error {:?}, while C++ returned {}", n, hex::encode(&c));
+            panic!("For op type {:?}: Native result returned error {:?}, while C++ returned {}", native_op, n, hex::encode(&c));
         }
     }
 }
@@ -115,24 +115,16 @@ fn run_gas_with_op(data: &[u8]) {
     let native_op = native_op.unwrap();
     let cpp_op = cpp_op.unwrap();
 
-    if native_op == eth_pairings::public_interface::OperationType::G1MULTIEXP ||
-            native_op == eth_pairings::public_interface::OperationType::G2MULTIEXP ||
-            native_op == eth_pairings::public_interface::OperationType::BLS12PAIR ||
-            native_op == eth_pairings::public_interface::OperationType::BNPAIR ||
-            native_op == eth_pairings::public_interface::OperationType::MNT4PAIR ||
-            native_op == eth_pairings::public_interface::OperationType::MNT6PAIR 
-    {
-        return;
-    }
+    println!("Op = {:?}", native_op);
     
     let native = eth_pairings::gas_meter::meter_operation(native_op, &data[0..]);
     let cpp = eth_pairings_cpp::meter_operation(cpp_op, &data[0..]);
     match (native, cpp) {
         (Ok(n), Ok(c)) => {
             if n != c {
-                // println!("Input = {}", hex::encode(&data));
+                println!("Input = {}", hex::encode(&data));
                 println!("Native result = {}, C++ result = {}", n, c);
-                panic!("Native result = {}, C++ result = {}", n, c);
+                panic!("For op type {:?}: Native result = {}, C++ result = {}", native_op, n, c);
             } else {
                 println!("Native and C++ results coincide");
                 // println!("Native and C++ results coincide on {}", hex::encode(&n));
@@ -142,14 +134,14 @@ fn run_gas_with_op(data: &[u8]) {
             println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
         },
         (Ok(n), Err(c)) => {
-            // println!("Input = {}", hex::encode(&data));
+            println!("Input = {}", hex::encode(&data));
             println!("Native result = {}, while C++ returned error {:?}", n, c);
-            panic!("Native result = {}, while C++ returned error {:?}", n, c);
+            panic!("For op type {:?}: Native result = {}, while C++ returned error {:?}", native_op, n, c);
         },
         (Err(n), Ok(c)) => {
-            // println!("Input = {}", hex::encode(&data));
+            println!("Input = {}", hex::encode(&data));
             println!("Native result returned error {:?}, while C++ returned {}", n, c);
-            panic!("Native result returned error {:?}, while C++ returned {}", n, c);
+            panic!("For op type {:?}: Native result returned error {:?}, while C++ returned {}", native_op, n, c);
         }
     }
 }

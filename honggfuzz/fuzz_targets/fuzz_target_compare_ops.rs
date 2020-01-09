@@ -37,6 +37,34 @@ fn main() {
 
             let native_op = native_op.unwrap();
             let cpp_op = cpp_op.unwrap();
+
+            let native = eth_pairings::gas_meter::meter_operation(native_op, &data[0..]);
+            let cpp = eth_pairings_cpp::meter_operation(cpp_op, &data[0..]);
+            match (native, cpp) {
+                (Ok(n), Ok(c)) => {
+                    if n != c {
+                        // println!("Input = {}", hex::encode(&data));
+                        println!("Native result = {}, C++ result = {}", n, c);
+                        panic!("Native result = {}, C++ result = {}", n, c);
+                    } else {
+                        println!("Native and C++ results coincide");
+                        // println!("Native and C++ results coincide on {}", hex::encode(&n));
+                    }
+                },
+                (Err(n), Err(c)) => {
+                    println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
+                },
+                (Ok(n), Err(c)) => {
+                    // println!("Input = {}", hex::encode(&data));
+                    println!("Native result = {}, while C++ returned error {:?}", n, c);
+                    panic!("Native result = {}, while C++ returned error {:?}", n, c);
+                },
+                (Err(n), Ok(c)) => {
+                    // println!("Input = {}", hex::encode(&data));
+                    println!("Native result returned error {:?}, while C++ returned {}", n, c);
+                    panic!("Native result returned error {:?}, while C++ returned {}", n, c);
+                }
+            }
             
             let native = eth_pairings::public_interface::perform_operation(native_op, &data[0..]);
             let cpp = eth_pairings_cpp::perform_operation(cpp_op, &data[0..]);

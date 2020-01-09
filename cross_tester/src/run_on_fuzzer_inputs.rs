@@ -65,7 +65,7 @@ fn read_inputs_from_dirs(dirs: Vec<&str>, exts: Vec<&str>) -> Vec<(Vec<u8>, Stri
             } else {
                 let extension = path.extension();
                 if extension.is_none() {
-                    if !exts.is_empty() {
+                    if !(exts.is_empty() || exts.contains(&""))  {
                         continue
                     }
                 } else {
@@ -130,7 +130,7 @@ fn cross_check_with_gas() {
     use super::run_gas_with_op;
 
     let paths = vec!["fuzz_vectors/", "fuzz_vectors/fuzz_target_compare_ops/"];
-    let exts = vec!["fuzz", "cov"];
+    let exts = vec!["fuzz", "cov", ""];
     let inputs = read_inputs_from_dirs(paths, exts);
     println!("Running on {} crash inputs", inputs.len());
     for (i, input) in inputs.iter().enumerate() {

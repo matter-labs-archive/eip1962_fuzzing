@@ -13,8 +13,8 @@ hex = "*"
 csv = "1"
 
 [dependencies.eth_pairings]
-git = "https://github.com/matter-labs/eip1962"
-#path = "../../eip1962"
+#git = "https://github.com/matter-labs/eip1962"
+path = "../../eip1962"
 features = ["gas_metering", "fuzzing_mode"]
 
 [dependencies.eth_pairings_cpp]
