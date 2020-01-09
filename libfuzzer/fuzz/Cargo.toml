@@ -12,13 +12,15 @@ cargo-fuzz = true
 hex = "*"
 
 [dependencies.eth_pairings]
-#git = "https://github.com/matter-labs/eip1962"
-path = "../../../eip1962"
+git = "https://github.com/matter-labs/eip1962"
+#path = "../../../eip1962"
+features = ["gas_metering", "fuzzing_mode"]
 
 [dependencies.eth_pairings_cpp]
 path = "../../../eip1962_cpp"
-#git = "https://github.com/matter-labs/eip1962_cpp"
-features = ["fuzz"]
+git = "https://github.com/matter-labs/eip1962_cpp"
+#features = ["fuzz"]
+features = ["fuzzing_mode"]
 
 [dependencies.libfuzzer-sys]
 git = "https://github.com/rust-fuzz/libfuzzer-sys.git"
@@ -34,6 +36,10 @@ members = ["."]
 [[bin]]
 name = "fuzz_target_compare"
 path = "fuzz_targets/fuzz_target_compare.rs"
+
+[[bin]]
+name = "fuzz_target_compare_ops"
+path = "fuzz_targets/fuzz_target_compare_ops.rs"
 
 #[[bin]]
 #name = "fuzz_target_gas"
