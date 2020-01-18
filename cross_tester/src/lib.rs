@@ -1,8 +1,13 @@
 #![allow(dead_code)]
 
+#![cfg_attr(feature = "benchmarks", feature(test))]
+
 extern crate eth_pairings;
 extern crate eth_pairings_cpp;
 extern crate hex;
+
+#[cfg(all(feature = "benchmarks", test))]
+mod bench;
 
 mod run_on_csv;
 mod run_on_fuzzer_inputs;

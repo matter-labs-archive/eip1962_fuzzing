@@ -19,11 +19,11 @@ features = ["gas_metering", "fuzzing_mode"]
 [dependencies.eth_pairings_cpp]
 #path = "../../../eip1962_cpp"
 git = "https://github.com/matter-labs/eip1962_cpp"
-#features = ["fuzz"]
 features = ["fuzzing_mode"]
 
 [dependencies.libfuzzer-sys]
-git = "https://github.com/rust-fuzz/libfuzzer-sys.git"
+#git = "https://github.com/rust-fuzz/libfuzzer-sys.git"
+version = "0.2"
 
 # Prevent this from interfering with workspaces
 [workspace]
