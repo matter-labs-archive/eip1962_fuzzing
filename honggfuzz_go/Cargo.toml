@@ -1,6 +1,6 @@
 
 [package]
-name = "eth_pairings-honggfuzz"
+name = "eth_pairings-honggfuzz-local"
 version = "0.0.1"
 authors = ["Automatically generated"]
 publish = false
@@ -14,35 +14,34 @@ version = "*"
 
 [dependencies.eth_pairings]
 git = "https://github.com/matter-labs/eip1962"
-features = ["gas_metering", "fuzzing_mode"]
 
-[dependencies.eth_pairings_cpp]
-#path = "../../eip1962_cpp"
-git = "https://github.com/matter-labs/eip1962_cpp"
-features = ["fuzzing_mode"]
+[dependencies.eth_pairings_go]
+git = "https://github.com/shamatar/eip1962_cpp"
 
-[dependencies]
-honggfuzz = "0.5"
+[dependencies.honggfuzz]
+#version = "*"
+#path = "../../honggfuzz-rs"
+git = "https://github.com/shamatar/honggfuzz-rs.git"
 
 # Prevent this from interfering with workspaces
 [workspace]
 members = ["."]
 
-[[bin]]
-name = "fuzz_target_api"
-path = "fuzz_targets/fuzz_target_api.rs"
+#[[bin]]
+#name = "fuzz_target_api"
+#path = "fuzz_targets/fuzz_target_api.rs"
 
-[[bin]]
-name = "fuzz_target_compare"
-path = "fuzz_targets/fuzz_target_compare.rs"
+#[[bin]]
+#name = "fuzz_target_compare"
+#path = "fuzz_targets/fuzz_target_compare.rs"
 
 [[bin]]
 name = "fuzz_target_compare_ops"
 path = "fuzz_targets/fuzz_target_compare_ops.rs"
 
-[[bin]]
-name = "fuzz_target_gas"
-path = "fuzz_targets/fuzz_target_gas.rs"
+#[[bin]]
+#name = "fuzz_target_gas"
+#path = "fuzz_targets/fuzz_target_gas.rs"
 
 [profile.dev]
 opt-level = 2

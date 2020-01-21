@@ -1,0 +1,6 @@
+version: '3'
+services:
+  fuzzer:
+    build: .
+    volumes:
+        - ./hfuzz_workspace:/fuzz/hfuzz_workspace
