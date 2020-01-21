@@ -1,0 +1,6 @@
+target
+Cargo.lock
+in_compare/*.cov
+out_compare/**/*
+in_gas/*.cov
+out_gas/**/*
