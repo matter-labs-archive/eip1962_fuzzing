@@ -15,6 +15,7 @@ hex = "*"
 git = "https://github.com/matter-labs/eip1962"
 
 [dependencies.eth_pairings_go]
+#path = "../../../eip1962_go/eip1962_cpp/"
 git = "https://github.com/shamatar/eip1962_cpp"
 
 [dependencies.libfuzzer-sys]
