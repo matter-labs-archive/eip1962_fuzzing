@@ -19,7 +19,7 @@ git = "https://github.com/matter-labs/eip1962"
 git = "https://github.com/shamatar/eip1962_cpp"
 
 [dependencies.honggfuzz]
-#version = "*"
+# honggfuzz = "0.5"
 #path = "../../honggfuzz-rs"
 git = "https://github.com/shamatar/honggfuzz-rs.git"
 
