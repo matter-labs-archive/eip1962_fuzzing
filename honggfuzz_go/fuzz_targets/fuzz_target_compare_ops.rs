@@ -28,8 +28,8 @@ fn main() {
             let native_op = native_op.unwrap();
             let cpp_op = cpp_op.unwrap();
 
-            // let native = eth_pairings::gas_meter::meter_operation(native_op, &data[0..]);
-            // let cpp = eth_pairings_go::meter_operation(cpp_op, &data[0..]);
+            // let native = eth_pairings::gas_meter::meter_operation(native_op, &data[1..]);
+            // let cpp = eth_pairings_go::meter_operation(cpp_op, &data[1..]);
             // match (native, cpp) {
             //     (Ok(n), Ok(c)) => {
             //         if n != c {
@@ -56,8 +56,8 @@ fn main() {
             //     }
             // }
             
-            let native = eth_pairings::public_interface::perform_operation(native_op, &data[0..]);
-            let cpp = eth_pairings_go::perform_operation(cpp_op, &data[0..]);
+            let native = eth_pairings::public_interface::perform_operation(native_op, &data[1..]);
+            let cpp = eth_pairings_go::perform_operation(cpp_op, &data[1..]);
             match (native, cpp) {
                 (Ok(n), Ok(c)) => {
                     if n != c {

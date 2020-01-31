@@ -21,7 +21,7 @@ features = ["gas_metering", "fuzzing_mode"]
 git = "https://github.com/matter-labs/eip1962_cpp"
 features = ["fuzzing_mode"]
 
-[dependencies]
+[dependencies.honggfuzz]
 # honggfuzz = "0.5"
 git = "https://github.com/shamatar/honggfuzz-rs.git"
 

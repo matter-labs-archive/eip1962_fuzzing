@@ -55,8 +55,8 @@ fuzz_target!(|data: &[u8]| {
     //     }
     // }
     
-    let native = eth_pairings::public_interface::perform_operation(native_op, &data[0..]);
-    let cpp = eth_pairings_go::perform_operation(cpp_op, &data[0..]);
+    let native = eth_pairings::public_interface::perform_operation(native_op, &data[1..]);
+    let cpp = eth_pairings_go::perform_operation(cpp_op, &data[1..]);
     match (native, cpp) {
         (Ok(n), Ok(c)) => {
             if n != c {
