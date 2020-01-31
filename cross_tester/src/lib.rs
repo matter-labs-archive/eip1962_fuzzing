@@ -12,6 +12,10 @@ mod bench;
 mod run_on_csv;
 mod run_on_fuzzer_inputs;
 
+use std::time::Instant;
+
+const MAX_EXEC_MS: u128 = 1000u128;
+
 fn run(data: &[u8]) {
     if data.len() < 1 {
         return;
@@ -71,19 +75,22 @@ fn run_with_op(data: &[u8]) {
 
     let native = eth_pairings::gas_meter::meter_operation(native_op, &data[1..]);
     let cpp = eth_pairings_cpp::meter_operation(cpp_op, &data[1..]);
-    match (native, cpp) {
+    let gas_cost = match (native, cpp) {
         (Ok(n), Ok(c)) => {
             if n != c {
                 println!("Input = {}", hex::encode(&data));
                 println!("Native result = {}, C++ result = {}", n, c);
                 panic!("For op type {:?}: Native result = {}, C++ result = {}", native_op, n, c);
             } else {
-                println!("Native and C++ results coincide");
+                println!("Native and C++ gas results coincide");
+
+                n
                 // println!("Native and C++ results coincide on {}", hex::encode(&n));
             }
         },
         (Err(n), Err(c)) => {
             println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
+            0
         },
         (Ok(n), Err(c)) => {
             println!("Input = {}", hex::encode(&data));
@@ -95,10 +102,20 @@ fn run_with_op(data: &[u8]) {
             println!("Native result returned error {:?}, while C++ returned {}", n, c);
             panic!("For op type {:?}: Native result returned error {:?}, while C++ returned {}", native_op, n, c);
         }
-    }
-    
+    };
+
+    let start = Instant::now();
     let native = eth_pairings::public_interface::perform_operation(native_op, &data[1..]);
+    if start.elapsed().as_millis() > MAX_EXEC_MS {
+        println!("Rust operation taken too much time! {}ms", start.elapsed().as_millis());
+        println!("Corresponding gas cost = {}", gas_cost);
+        // panic!("Rust operation taken too much time! {}ms", start.elapsed().as_millis());
+    }
+    let start = Instant::now();
     let cpp = eth_pairings_cpp::perform_operation(cpp_op, &data[1..]);
+    if start.elapsed().as_millis() > MAX_EXEC_MS {
+        panic!("C++ operation taken too much time! {}ms", start.elapsed().as_millis());
+    }
     match (native, cpp) {
         (Ok(n), Ok(c)) => {
             if n != c {
@@ -192,6 +209,18 @@ fn cross_check_on_input() {
     assert!(input_data.len() != 0);
     let now = Instant::now();
     self::run(&input_data[..]);
+    let elapsed = now.elapsed().as_micros();
+    println!("Api call taken in {} micros", elapsed);
+}
+
+
+#[test]
+fn cross_check_on_hex() {
+    let as_string = "0801c10082020603452003010304000401030302010376060340202d3238323435370238";
+    let input_data = hex::decode(as_string).unwrap();
+    assert!(input_data.len() != 0);
+    let now = Instant::now();
+    let _ = self::run_with_op(&input_data);
     let elapsed = now.elapsed().as_micros();
     println!("Api call taken in {} micros", elapsed);
 }
