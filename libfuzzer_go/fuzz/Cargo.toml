@@ -20,7 +20,7 @@ git = "https://github.com/shamatar/eip1962_cpp"
 
 [dependencies.libfuzzer-sys]
 #git = "https://github.com/rust-fuzz/libfuzzer-sys.git"
-version = "0.2"
+version = "0.3"
 
 # Prevent this from interfering with workspaces
 [workspace]

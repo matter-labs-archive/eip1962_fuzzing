@@ -12,8 +12,8 @@ cargo-fuzz = true
 hex = "*"
 
 [dependencies.eth_pairings]
-git = "https://github.com/matter-labs/eip1962"
-#path = "../../../eip1962"
+# git = "https://github.com/matter-labs/eip1962"
+# path = "../../../eip1962"
 features = ["gas_metering", "fuzzing_mode"]
 
 [dependencies.eth_pairings_cpp]
@@ -23,7 +23,7 @@ features = ["fuzzing_mode"]
 
 [dependencies.libfuzzer-sys]
 #git = "https://github.com/rust-fuzz/libfuzzer-sys.git"
-version = "0.2"
+version = "0.3"
 
 # Prevent this from interfering with workspaces
 [workspace]
