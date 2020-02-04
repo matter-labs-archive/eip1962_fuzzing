@@ -24,10 +24,23 @@ features = ["fuzzing_mode"]
 
 [dependencies.honggfuzz]
 version = "0.5"
+optional = true
+# # git = "https://github.com/shamatar/honggfuzz-rs.git"
+
+
+[dependencies.honggfuzz_macos]
+package = "honggfuzz"
+git = "https://github.com/shamatar/honggfuzz-rs.git"
+optional = true
 
 # Prevent this from interfering with workspaces
 [workspace]
 members = ["."]
+
+[features]
+detault = ["linux"]
+linux = ["honggfuzz"]
+macos = ["honggfuzz_macos"]
 
 [[bin]]
 name = "fuzz_target_api"
@@ -40,6 +53,11 @@ path = "fuzz_targets/fuzz_target_compare.rs"
 [[bin]]
 name = "fuzz_target_compare_ops"
 path = "fuzz_targets/fuzz_target_compare_ops.rs"
+
+[[bin]]
+name = "fuzz_target_compare_ops_macos"
+path = "fuzz_targets/fuzz_target_compare_ops.rs"
+required-features = ["macos"]
 
 [[bin]]
 name = "fuzz_target_gas"
