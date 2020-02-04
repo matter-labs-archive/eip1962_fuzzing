@@ -1,7 +1,7 @@
-#[cfg(all(target_os = "macos", feature = "macos"))]
+#[cfg(all(macos, feature = "macos"))]
 #[macro_use] extern crate honggfuzz_macos as honggfuzz;
 
-#[cfg(not(all(target_os = "macos", feature = "macos")))]
+#[cfg(any(feature = "linux", not(macos)))]
 #[macro_use] extern crate honggfuzz;
 
 extern crate eth_pairings;

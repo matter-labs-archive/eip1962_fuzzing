@@ -1,4 +1,3 @@
-
 #[cfg(all(macos, feature = "macos"))]
 #[macro_use] extern crate honggfuzz_macos as honggfuzz;
 
