@@ -48,6 +48,9 @@ fn main() {
                         println!("Native result = {}, C++ result = {}", n, c);
                         panic!("Native result = {}, C++ result = {}", n, c);
                     } else {
+                        if n == 0 {
+                            panic!("Gas estimate is zero");
+                        }
                         // println!("Native and C++ gas results coincide");
                     }
                 },
