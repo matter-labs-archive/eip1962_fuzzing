@@ -1,4 +1,9 @@
+#[cfg(all(target_os = "macos", feature = "macos"))]
+#[macro_use] extern crate honggfuzz_macos as honggfuzz;
+
+#[cfg(not(all(target_os = "macos", feature = "macos")))]
 #[macro_use] extern crate honggfuzz;
+
 extern crate eth_pairings;
 extern crate eth_pairings_cpp;
 extern crate hex;
@@ -47,12 +52,11 @@ fn main() {
                         println!("Native result = {}, C++ result = {}", n, c);
                         panic!("Native result = {}, C++ result = {}", n, c);
                     } else {
-                        println!("Native and C++ results coincide");
-                        // println!("Native and C++ results coincide on {}", hex::encode(&n));
+                        // println!("Native and C++ gas results coincide");
                     }
                 },
                 (Err(n), Err(c)) => {
-                    println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
+                    // println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
                 },
                 (Ok(n), Err(c)) => {
                     // println!("Input = {}", hex::encode(&data));
@@ -71,24 +75,24 @@ fn main() {
             match (native, cpp) {
                 (Ok(n), Ok(c)) => {
                     if n != c {
-                        // println!("Native result = {}, C++ result = {}", hex::encode(&n), hex::encode(&c));
+                        println!("Native result = {}, while C++ result = {}", hex::encode(&n), hex::encode(&c));
                         panic!("Native result = {}, C++ result = {}", hex::encode(&n), hex::encode(&c));
                     } else {
+                        // println!("Native and C++ results coincide");
                         // println!("Native and C++ results coincide on {}", hex::encode(&n));
                     }
                 },
                 (Err(_n), Err(_c)) => {
-                    return;
                     // println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
                 },
                 (Ok(n), Err(c)) => {
                     // println!("Input = {}", hex::encode(&data));
-                    // println!("Native result = {}, while C++ returned error {:?}", hex::encode(&n), c);
+                    println!("Native result = {}, while C++ returned error {:?}", hex::encode(&n), c);
                     panic!("Native result = {}, while C++ returned error {:?}", hex::encode(&n), c);
                 },
                 (Err(n), Ok(c)) => {
                     // println!("Input = {}", hex::encode(&data));
-                    // println!("Native result returned error {:?}, while C++ returned {}", n, hex::encode(&c));
+                    println!("Native result returned error {:?}, while C++ returned {}", n, hex::encode(&c));
                     panic!("Native result returned error {:?}, while C++ returned {}", n, hex::encode(&c));
                 }
             }

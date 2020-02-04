@@ -75,7 +75,7 @@ fn run_with_op(data: &[u8]) {
 
     let native = eth_pairings::gas_meter::meter_operation(native_op, &data[1..]);
     let cpp = eth_pairings_cpp::meter_operation(cpp_op, &data[1..]);
-    let gas_cost = match (native, cpp) {
+    let (error, gas_cost) = match (native, cpp) {
         (Ok(n), Ok(c)) => {
             if n != c {
                 println!("Input = {}", hex::encode(&data));
@@ -84,13 +84,14 @@ fn run_with_op(data: &[u8]) {
             } else {
                 println!("Native and C++ gas results coincide");
 
-                n
+
+                (false, n)
                 // println!("Native and C++ results coincide on {}", hex::encode(&n));
             }
         },
         (Err(n), Err(c)) => {
             println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
-            0
+            (true, 0)
         },
         (Ok(n), Err(c)) => {
             println!("Input = {}", hex::encode(&data));
@@ -104,17 +105,26 @@ fn run_with_op(data: &[u8]) {
         }
     };
 
+    if !error && gas_cost == 0 {
+        panic!("Gas cost is zero for {}", hex::encode(&data));
+    }
+
     let start = Instant::now();
     let native = eth_pairings::public_interface::perform_operation(native_op, &data[1..]);
     if start.elapsed().as_millis() > MAX_EXEC_MS {
-        println!("Rust operation taken too much time! {}ms", start.elapsed().as_millis());
-        println!("Corresponding gas cost = {}", gas_cost);
+        if !error {
+            println!("Rust operation taken too much time! {}ms", start.elapsed().as_millis());
+            println!("Corresponding gas cost = {}", gas_cost);
+        }
         // panic!("Rust operation taken too much time! {}ms", start.elapsed().as_millis());
     }
     let start = Instant::now();
     let cpp = eth_pairings_cpp::perform_operation(cpp_op, &data[1..]);
     if start.elapsed().as_millis() > MAX_EXEC_MS {
-        panic!("C++ operation taken too much time! {}ms", start.elapsed().as_millis());
+        if !error {
+            println!("C++ operation taken too much time! {}ms", start.elapsed().as_millis());
+            println!("Corresponding gas cost = {}", gas_cost);
+        }
     }
     match (native, cpp) {
         (Ok(n), Ok(c)) => {
@@ -176,7 +186,7 @@ fn run_gas_with_op(data: &[u8]) {
                 println!("Native result = {}, C++ result = {}", n, c);
                 panic!("For op type {:?}: Native result = {}, C++ result = {}", native_op, n, c);
             } else {
-                println!("Native and C++ results coincide");
+                println!("Native and C++ gas results coincide");
                 // println!("Native and C++ results coincide on {}", hex::encode(&n));
             }
         },

@@ -112,7 +112,7 @@ fn cross_check_with_op() {
     use super::run_with_op;
 
     let paths = vec!["fuzz_vectors/", "fuzz_vectors/fuzz_target_compare_ops/"];
-    let exts = vec!["fuzz"];
+    let exts = vec!["fuzz", "verified"];
     let inputs = read_inputs_from_dirs(paths, exts);
     println!("Running on {} crash inputs", inputs.len());
     for (i, input) in inputs.iter().enumerate() {
@@ -130,7 +130,7 @@ fn cross_check_with_gas() {
     use super::run_gas_with_op;
 
     let paths = vec!["fuzz_vectors/", "fuzz_vectors/fuzz_target_compare_ops/"];
-    let exts = vec!["fuzz", "cov", ""];
+    let exts = vec!["fuzz", "cov", "", "verified"];
     let inputs = read_inputs_from_dirs(paths, exts);
     println!("Running on {} crash inputs", inputs.len());
     for (i, input) in inputs.iter().enumerate() {

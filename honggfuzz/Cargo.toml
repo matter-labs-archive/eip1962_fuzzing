@@ -13,21 +13,34 @@ hfuzz = true
 version = "*"
 
 [dependencies.eth_pairings]
-git = "https://github.com/matter-labs/eip1962"
+path = "../../eip1962"
+# git = "https://github.com/matter-labs/eip1962"
 features = ["gas_metering", "fuzzing_mode"]
 
 [dependencies.eth_pairings_cpp]
-#path = "../../eip1962_cpp"
-git = "https://github.com/matter-labs/eip1962_cpp"
+path = "../../eip1962_cpp"
+# git = "https://github.com/matter-labs/eip1962_cpp"
 features = ["fuzzing_mode"]
 
 [dependencies.honggfuzz]
 version = "0.5"
-# git = "https://github.com/shamatar/honggfuzz-rs.git"
+optional = true
+# # git = "https://github.com/shamatar/honggfuzz-rs.git"
+
+
+[dependencies.honggfuzz_macos]
+package = "honggfuzz"
+git = "https://github.com/shamatar/honggfuzz-rs.git"
+optional = true
 
 # Prevent this from interfering with workspaces
 [workspace]
 members = ["."]
+
+[features]
+detault = ["linux"]
+linux = ["honggfuzz"]
+macos = ["honggfuzz_macos"]
 
 [[bin]]
 name = "fuzz_target_api"
@@ -40,6 +53,12 @@ path = "fuzz_targets/fuzz_target_compare.rs"
 [[bin]]
 name = "fuzz_target_compare_ops"
 path = "fuzz_targets/fuzz_target_compare_ops.rs"
+required-features = ["linux"]
+
+[[bin]]
+name = "fuzz_target_compare_ops_macos"
+path = "fuzz_targets/fuzz_target_compare_ops.rs"
+required-features = ["macos"]
 
 [[bin]]
 name = "fuzz_target_gas"

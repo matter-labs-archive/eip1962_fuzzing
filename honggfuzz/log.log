@@ -1,0 +1,1 @@
+Native result = 00, while C++ returned error "parameter has value out of bounds, Failed to calculate Frobenius coeffs for Fp2"

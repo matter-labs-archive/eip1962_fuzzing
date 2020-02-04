@@ -1,4 +1,12 @@
+
+#[cfg(all(macos, feature = "macos"))]
+#[macro_use] extern crate honggfuzz_macos as honggfuzz;
+
+#[cfg(any(feature = "linux", not(macos)))]
 #[macro_use] extern crate honggfuzz;
+
+use crate::honggfuzz::*;
+
 extern crate eth_pairings;
 extern crate eth_pairings_cpp;
 
