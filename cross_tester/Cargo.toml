@@ -24,8 +24,9 @@ path = "../../eip1962_cpp"
 # features = ["fuzzing_mode"]
 
 [features]
-default = ["fuzzing_mode"]
-# default = ["eth_pairings/gas_metering"]
+default = ["debug_fuzzing_mode"]
+# default = ["fuzzing_mode"]
+debug_fuzzing_mode = ["eth_pairings/gas_metering", "eth_pairings/fuzzing_mode", "eth_pairings_cpp/testing"]
 fuzzing_mode = ["eth_pairings/gas_metering", "eth_pairings/fuzzing_mode", "eth_pairings_cpp/fuzzing_mode"]
 benchmarks = []
 
