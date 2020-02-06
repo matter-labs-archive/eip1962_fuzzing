@@ -55,6 +55,9 @@ fn main() {
                     }
                 },
                 (Err(n), Err(c)) => {
+                    if n == eth_pairings::public_interface::ApiError::Overflow {
+                        panic!("Overflow when estimated gas");
+                    }
                     // println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
                 },
                 (Ok(n), Err(c)) => {

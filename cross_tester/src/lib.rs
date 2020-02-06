@@ -12,6 +12,8 @@ mod bench;
 mod run_on_csv;
 mod run_on_fuzzer_inputs;
 
+use eth_pairings::public_interface::ApiError;
+
 use std::time::Instant;
 
 const MAX_EXEC_MS: u128 = 1000u128;
@@ -90,7 +92,10 @@ fn run_with_op(data: &[u8]) {
             }
         },
         (Err(n), Err(c)) => {
-            println!("Native and C++ results coincide on error: {:?}, {:?}", n, c);
+            println!("Native and C++ gas results coincide on error: {:?}, {:?}", n, c);
+            if n == ApiError::Overflow {
+                panic!("Overflow when estimated gas");
+            }
             (true, 0)
         },
         (Ok(n), Err(c)) => {
